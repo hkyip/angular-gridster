@@ -888,6 +888,7 @@ angular.module('gridster', [])
 							sizeY = gridster.pixelsToRows(widget.size.height - 1 + gridster.margins[0] / 2, true),
 							sizeX = gridster.pixelsToColumns(widget.size.width - 1 + gridster.margins[1] / 2, true);
 
+						sizeX = Math.min ( sizeX, gridster.columns)
 						if (gridster.pushing !== false || gridster.getItems(row, col, sizeX, sizeY, item).length === 0) {
 							item.row = row;
 							item.col = col;
@@ -932,6 +933,9 @@ angular.module('gridster', [])
 									gridster.resizable.stop(event, widget, $el);
 								}
 							});
+							
+							if (item.col < 0)
+								return false
 							item.setPosition(item.row, item.col);
 							item.setSizeY(item.sizeY);
 							item.setSizeX(item.sizeX);
